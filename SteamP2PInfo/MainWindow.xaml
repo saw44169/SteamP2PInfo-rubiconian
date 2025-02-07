@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:SteamP2PInfo"
         xmlns:config="clr-namespace:SteamP2PInfo.Config"
         mc:Ignorable="d"
@@ -46,6 +46,8 @@
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Connection Quality" IsReadOnly="True" Binding="{Binding ConnectionQuality, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </mah:MetroTabItem>

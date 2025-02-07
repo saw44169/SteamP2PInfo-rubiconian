@@ -33,6 +33,8 @@ namespace SteamP2PInfo
 
         public override double ConnectionQuality { get { return 1d / (0.01d * ETWPingMonitor.GetJitter(mNetIdentity) + 1d); } }
 
+        public override double ConnectionQualityRemote {get { return -2; } }
+
         public SteamPeerOldAPI(CSteamID steamId) : base(steamId) 
         {
             mSessionState = new P2PSessionState_t();

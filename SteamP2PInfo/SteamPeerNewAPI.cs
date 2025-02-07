@@ -30,7 +30,9 @@ namespace SteamP2PInfo
 
         public override double ConnectionQuality => mRealTimeStatus.m_flConnectionQualityLocal;
 
-        public SteamPeerNewAPI(CSteamID steamId) : base(steamId) 
+        public override double ConnectionQualityRemote => mRealTimeStatus.m_flConnectionQualityRemote;
+
+        public SteamPeerNewAPI(CSteamID steamId) : base(steamId)
         {
             mConnInfo = new SteamNetConnectionInfo_t();
             mRealTimeStatus = new SteamNetConnectionRealTimeStatus_t();

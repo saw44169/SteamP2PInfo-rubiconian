@@ -53,6 +53,11 @@ namespace SteamP2PInfo
         public abstract double ConnectionQuality { get; }
 
         /// <summary>
+        /// Packet delivery success rate as observed from remote host
+        /// </summary>
+        public abstract double ConnectionQualityRemote { get; }
+
+        /// <summary>
         /// ARGB hexadecimal color code used to fill the ping text.
         /// </summary>
         public string PingColor
