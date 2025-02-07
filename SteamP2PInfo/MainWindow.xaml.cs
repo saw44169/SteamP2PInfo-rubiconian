@@ -74,7 +74,7 @@ namespace SteamP2PInfo
                     {
                         this.Invoke(() =>
                         {
-                            linkUpdate.NavigateUri = new Uri("https://github.com/tremwil/SteamP2PInfo/releases/tag/" + v);
+                            linkUpdate.NavigateUri = new Uri("https://github.com/" + VersionCheck.repositoryName + "/releases/tag/" + v);
                             textUpdate.Text = string.Format("NEW VERSION ({0}), DOWNLOAD HERE", v);
                             this.ShowMessageAsync("New Version Available", string.Format("{0} is out! Click the link in the title bar to download it.", v));
                         });
