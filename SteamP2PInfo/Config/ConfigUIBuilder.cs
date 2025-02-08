@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Data;
-using System.Windows.Controls;
-using System.ComponentModel;
+﻿using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SteamP2PInfo.Config
 {
@@ -18,8 +12,8 @@ namespace SteamP2PInfo.Config
             PropertyInfo[] editableProperties = config.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
                 .Where(p => p.GetCustomAttributes().Any(a => a is IConfigUIElement)).ToArray();
 
-            Grid grid = new Grid() 
-            { 
+            Grid grid = new Grid()
+            {
                 Margin = new Thickness(10),
                 ColumnDefinitions =
                 {
@@ -41,7 +35,7 @@ namespace SteamP2PInfo.Config
                     elem.SetValue(Grid.ColumnProperty, 0);
                     elem.SetValue(Grid.ColumnSpanProperty, 2);
                 }
-                else 
+                else
                 {
                     Label label = new Label()
                     {

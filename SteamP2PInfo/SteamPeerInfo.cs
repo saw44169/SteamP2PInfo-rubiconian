@@ -5,7 +5,7 @@
         internal SteamPeerBase peer = null;
         internal bool isConnected;
         internal long lastDisconnectTimeMS = 0;
-        
+
 
         internal SteamPeerInfo(SteamPeerBase peer)
         {

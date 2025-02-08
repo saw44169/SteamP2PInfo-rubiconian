@@ -1,14 +1,13 @@
-﻿using SteamP2PInfo.WinAPI;
-using System;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Interop;
+using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Data;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Threading;
 using SteamP2PInfo.Config;
-using System.Windows.Controls;
-using System.Collections.ObjectModel;
-using System.Windows.Media;
+using SteamP2PInfo.WinAPI;
 
 namespace SteamP2PInfo
 {
@@ -69,7 +68,7 @@ namespace SteamP2PInfo
 
             bool shouldTopmost = User32.GetForegroundWindow() == TgtWinHandle || IsActive;
             bool isTopmost = (User32.GetWindowLongPtr(interopHelper.Handle, -20).ToInt32() & 0x8) != 0;
-            
+
             if (shouldTopmost && !isTopmost) User32.SetWindowZOrder(interopHelper.Handle, new IntPtr(-1), 0x010);
             if (!shouldTopmost && isTopmost)
             {   // Place the overlay right above the DS3 window
@@ -149,7 +148,7 @@ namespace SteamP2PInfo
                 GameConfig.Current.OverlayConfig.XOffset = ((int)GameConfig.Current.OverlayConfig.Anchor % 2 == 1) ? (Left - wpfRect.Left) / wpfRect.Width :
                     1 - (Left - wpfRect.Left + ActualWidth) / wpfRect.Width;
 
-                GameConfig.Current.OverlayConfig.YOffset  = ((int)GameConfig.Current.OverlayConfig.Anchor < 2) ? (Top - wpfRect.Top) / wpfRect.Height :
+                GameConfig.Current.OverlayConfig.YOffset = ((int)GameConfig.Current.OverlayConfig.Anchor < 2) ? (Top - wpfRect.Top) / wpfRect.Height :
                     1 - (Top - wpfRect.Top + ActualHeight) / wpfRect.Height;
 
                 isDragging = false;

@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using Steamworks;
-
-using SteamP2PInfo.Config;
+using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Diagnostics;
-using System;
-using System.Reflection;
+using SteamP2PInfo.Config;
+using Steamworks;
 
 namespace SteamP2PInfo
 {
@@ -36,7 +35,7 @@ namespace SteamP2PInfo
                 .Where(t => t.IsSubclassOf(typeof(SteamPeerBase)))
                 .Select(t => new Func<CSteamID, SteamPeerBase>((CSteamID sid) => Activator.CreateInstance(t, sid) as SteamPeerBase))
                 .ToArray();
-            
+
 
         /// <summary>
         /// List of peers mapped by Steam ID.

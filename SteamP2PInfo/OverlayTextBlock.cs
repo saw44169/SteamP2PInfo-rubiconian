@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
 

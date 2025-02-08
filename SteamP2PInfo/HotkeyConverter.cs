@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MahApps.Metro.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using MahApps.Metro.Controls;
 
 namespace SteamP2PInfo
 {
@@ -24,7 +20,7 @@ namespace SteamP2PInfo
             if (value == null) return 0;
 
             HotKey hk = (HotKey)value;
-            return (int)hk.ModifierKeys << 8 | KeyInterop.VirtualKeyFromKey(hk.Key); 
+            return (int)hk.ModifierKeys << 8 | KeyInterop.VirtualKeyFromKey(hk.Key);
         }
     }
 }

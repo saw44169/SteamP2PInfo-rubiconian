@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.IO;
-using Newtonsoft.Json;
-using System.ComponentModel;
-using System.Windows.Controls;
 using MahApps.Metro.Controls;
+using Newtonsoft.Json;
 
 namespace SteamP2PInfo.Config
 {

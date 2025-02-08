@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
-using MahApps.Metro.Controls;
-using System.Windows.Controls;
 using System.Globalization;
+using System.Windows.Controls;
+using MahApps.Metro.Controls;
+using Newtonsoft.Json;
 
 namespace SteamP2PInfo.Config
 {
@@ -88,7 +84,7 @@ namespace SteamP2PInfo.Config
         public double YOffset { get; set; } = 0.025;
 
         [JsonProperty("anchor")]
-        [ConfigEnumComboBox("Anchor", typeof(OverlayAnchor), 
+        [ConfigEnumComboBox("Anchor", typeof(OverlayAnchor),
             Tooltip: "Corner of the game window on which the overlay is anchored.")]
         public OverlayAnchor Anchor { get; set; } = OverlayAnchor.TopRight;
 

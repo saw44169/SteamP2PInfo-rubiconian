@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Steamworks;
 
 namespace SteamP2PInfo
@@ -33,9 +30,9 @@ namespace SteamP2PInfo
 
         public override double ConnectionQuality { get { return 1d / (0.01d * ETWPingMonitor.GetJitter(mNetIdentity) + 1d); } }
 
-        public override double ConnectionQualityRemote {get { return -2; } }
+        public override double ConnectionQualityRemote { get { return -2; } }
 
-        public SteamPeerOldAPI(CSteamID steamId) : base(steamId) 
+        public SteamPeerOldAPI(CSteamID steamId) : base(steamId)
         {
             mSessionState = new P2PSessionState_t();
         }
@@ -47,7 +44,7 @@ namespace SteamP2PInfo
 
         public override bool UpdatePeerInfo()
         {
-            if (!SteamNetworking.GetP2PSessionState(SteamID, out P2PSessionState_t session) || !IsSessionStateOK(session)) 
+            if (!SteamNetworking.GetP2PSessionState(SteamID, out P2PSessionState_t session) || !IsSessionStateOK(session))
                 return false;
 
             bool endpointChanged = mSessionState.m_nRemoteIP != session.m_nRemoteIP || mSessionState.m_nRemotePort != session.m_nRemotePort;

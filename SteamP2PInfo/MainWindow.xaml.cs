@@ -1,28 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
+using System.Media;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using System.IO;
-using Steamworks;
-using System.Security.Permissions;
-using System.Media;
 using SteamP2PInfo.Config;
+using Steamworks;
 
 namespace SteamP2PInfo
 {
@@ -218,7 +211,7 @@ namespace SteamP2PInfo
                     wInfo = dialog.SelectedWindow;
                     SteamPeerManager.Init();
 
-                    if(MustEnterSteamCommand())
+                    if (MustEnterSteamCommand())
                         SteamConsoleHelper();
 
                     HotkeyManager.RemoveHotkey(overlayHotkey);
@@ -266,7 +259,8 @@ namespace SteamP2PInfo
             {
                 ipcLogDate = File.GetLastWriteTime(Settings.Default.SteamLogPath);
 
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return true;
             }

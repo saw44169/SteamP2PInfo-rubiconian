@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.ComponentModel;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Data;
 
 namespace SteamP2PInfo.Config
 {
@@ -57,7 +52,7 @@ namespace SteamP2PInfo.Config
 
         public UIElement CreateUIElement(object source, string path)
         {
-            Binding binding = new Binding(path) 
+            Binding binding = new Binding(path)
             {
                 Source = source,
                 Mode = BindingMode.TwoWay,

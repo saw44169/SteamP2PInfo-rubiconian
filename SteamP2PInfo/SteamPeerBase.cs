@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Steamworks;
-
 using SteamP2PInfo.Config;
+using Steamworks;
 
 namespace SteamP2PInfo
 {
