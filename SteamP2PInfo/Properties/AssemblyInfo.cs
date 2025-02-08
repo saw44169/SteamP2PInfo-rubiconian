@@ -12,7 +12,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SteamP2PInfo")]
-[assembly: AssemblyCopyright("Copyright © tremwil 2022")]
+[assembly: AssemblyCopyright("Copyright © fork by saw44169, original by tremwil 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

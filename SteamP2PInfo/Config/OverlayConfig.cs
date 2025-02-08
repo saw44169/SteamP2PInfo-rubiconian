@@ -57,7 +57,7 @@ namespace SteamP2PInfo.Config
         [JsonProperty("banner_format")]
         [ConfigBindingElement("Banner Format", typeof(TextBox), "TextProperty",
             Tooltip: "Format string for the overlay banner text.")]
-        public string BannerFormat { get; set; } = "[{time:HH:mm:ss}] SteamP2PInfo - by tremwil";
+        public string BannerFormat { get; set; } = "[{time:HH:mm:ss}] SteamP2PInfo-r - by saw44169";
 
         [JsonProperty("font")]
         [ConfigFontSelector("Font", "Font for the text used in the overlay.")]
