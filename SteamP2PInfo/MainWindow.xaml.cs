@@ -96,10 +96,15 @@ namespace SteamP2PInfo
                     // Rather not have the settings update on a loop, but 
                     // Fody generated OnChange seems to break PropertyChanged 
                     // for GameConfig. So do this for now.
-                    GameConfig.Current?.Save();
+                    if (GameConfig.Current.isLoaded)
+                    {
+                        GameConfig.Current.Save();
+                    }
+
                     SteamPeerManager.UpdatePeerList();
                 }
 
+                // ここでObservableCollectionであるpeersの要素が入れ替わることによって変更が画面に反映される
                 peers.Clear();
                 foreach (SteamPeerBase p in SteamPeerManager.GetPeers())
                     peers.Add(p);
@@ -154,7 +159,7 @@ namespace SteamP2PInfo
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            if (GameConfig.Current != null) GameConfig.Current.Save();
+            if (GameConfig.Current.isLoaded) GameConfig.Current.Save();
             Settings.Default.Save();
             if (overlay != null) overlay.Close();
             HotkeyManager.Disable();

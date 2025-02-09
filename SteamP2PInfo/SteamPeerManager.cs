@@ -51,6 +51,11 @@ namespace SteamP2PInfo
             fsWatcher.EnableRaisingEvents = true;
         }
 
+        /// <summary>
+        /// extract SteamID from log
+        /// </summary>
+        /// <param name="str">string read from log</param>
+        /// <returns></returns>
         private static CSteamID ExtractUser(string str)
         {
             Match m = STEAMID3_REGEX.Match(str);
@@ -64,6 +69,11 @@ namespace SteamP2PInfo
             }
         }
 
+        /// <summary>
+        /// create new steam peer instance
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         private static SteamPeerBase GetPeer(CSteamID player)
         {
             SteamPeerBase peer = null;
@@ -119,23 +129,18 @@ namespace SteamP2PInfo
                 }
             }
 
-            var logDisconnect = new Action<SteamPeerBase, CSteamID, string>((p, sid, reason) =>
-            {
-                if (p is null)
-                    Logger.WriteLine($"[PEER DISCONNECT] (https://steamcommunity.com/profiles/{(ulong)sid}): {reason}");
-                else
-                    Logger.WriteLine($"[PEER DISCONNECT] \"{p.Name}\" (https://steamcommunity.com/profiles/{(ulong)sid}): {reason}");
-            });
-
             while (!mustReopenLog)
             {
                 string line = await sr.ReadLineAsync();
+
+                // ログの終端に到達したら終了
                 if (line == null)
                 {
                     lastPosInLog = fs.Position;
                     break;
                 }
 
+                // 対象のプロセスに関するログでなければスキップ
                 if (!line.Contains(GameConfig.Current.ProcessName))
                     continue;
 
@@ -152,7 +157,7 @@ namespace SteamP2PInfo
                 {
                     foreach (var sid in mPeers.Keys)
                     {
-                        logDisconnect(mPeers[sid].peer, sid, "Player left Steam lobby");
+                        LogDisconnect(mPeers[sid].peer, sid, "Player left Steam lobby");
                     }
                     mPeers.Clear();
                     continue;
@@ -167,7 +172,7 @@ namespace SteamP2PInfo
                     {
                         if (begin)
                         {
-                            if (!mPeers.TryGetValue(steamID, out SteamPeerInfo peer))
+                            if (!mPeers.ContainsKey(steamID))
                             {
                                 var newPeerInfo = new SteamPeerInfo(GetPeer(steamID));
                                 if (newPeerInfo.peer is null)
@@ -184,7 +189,7 @@ namespace SteamP2PInfo
                             if (mPeers.TryGetValue(steamID, out SteamPeerInfo pInfo))
                             {
                                 mPeers.Remove(steamID);
-                                logDisconnect(pInfo.peer, steamID, "Auth session with peer ended");
+                                LogDisconnect(pInfo.peer, steamID, "Auth session with peer ended");
                             }
                         }
                     }
@@ -194,17 +199,43 @@ namespace SteamP2PInfo
                     }
                 }
             }
+            UpdateAllPeerInfo();
+            CleanUpOldPeers();
+        }
 
+        /// <summary>
+        /// log disconnected peer and reason
+        /// </summary>
+        /// <param name="peer"></param>
+        /// <param name="sid"></param>
+        /// <param name="reason"></param>
+        private static void LogDisconnect(SteamPeerBase peer, CSteamID sid, string reason)
+        {
+            if (peer is null)
+            {
+                Logger.WriteLine($"[PEER DISCONNECT] (https://steamcommunity.com/profiles/{(ulong)sid}): {reason}");
+            }
+            else
+            {
+                Logger.WriteLine($"[PEER DISCONNECT] \"{peer.Name}\" (https://steamcommunity.com/profiles/{(ulong)sid}): {reason}");
+            }
+        }
+
+        private static void UpdateAllPeerInfo()
+        {
+            foreach (var item in mPeers)
+            {
+                SteamPeerInfo pInfo = item.Value as SteamPeerInfo;
+                pInfo.peer?.UpdatePeerInfo();
+            }
+        }
+        private static void CleanUpOldPeers()
+        {
             // clean up old peers.
             foreach (var sid in mPeers.Keys.ToArray())
             {
                 var pInfo = mPeers[sid];
                 bool isP2PConnected = false;
-                if (pInfo.peer is null)
-                    isP2PConnected = (pInfo.peer = GetPeer(sid)) != null;
-                else
-                    isP2PConnected = pInfo.peer.UpdatePeerInfo();
-
                 if (pInfo.isConnected && !isP2PConnected)
                     pInfo.lastDisconnectTimeMS = sw.ElapsedMilliseconds;
                 pInfo.isConnected = isP2PConnected;
@@ -212,7 +243,7 @@ namespace SteamP2PInfo
                 if (!isP2PConnected && sw.ElapsedMilliseconds - pInfo.lastDisconnectTimeMS > PEER_TIMEOUT_MS)
                 {
                     mPeers.Remove(sid);
-                    logDisconnect(pInfo.peer, sid, pInfo.peer is null ? "P2P connection was not established" : "Peer disconnected from P2P session");
+                    LogDisconnect(pInfo.peer, sid, pInfo.peer is null ? "P2P connection was not established" : "Peer disconnected from P2P session");
                 }
             }
         }

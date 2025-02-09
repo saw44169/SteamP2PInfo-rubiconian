@@ -26,15 +26,25 @@ namespace SteamP2PInfo
         /// <summary>
         /// Ping to peer in milliseconds.
         /// </summary>
-        public override double Ping { get { return ETWPingMonitor.GetPing(mNetIdentity); } }
+        public override ConnectionStatistics Ping => this._ping;
 
-        public override double ConnectionQuality { get { return 1d / (0.01d * ETWPingMonitor.GetJitter(mNetIdentity) + 1d); } }
+        public override ConnectionStatistics ConnectionQuality => this._connectionQuality;
 
-        public override double ConnectionQualityRemote { get { return -2; } }
+        public override ConnectionStatistics ConnectionQualityRemote => this._connectionQualityRemote;
+
+        public override string UsingRelay { get { return mSessionState.m_bUsingRelay.ToString(); } }
+
+        private ConnectionStatistics _ping;
+        private ConnectionStatistics _connectionQuality;
+        private ConnectionStatistics _connectionQualityRemote;
 
         public SteamPeerOldAPI(CSteamID steamId) : base(steamId)
         {
             mSessionState = new P2PSessionState_t();
+            _ping = new ConnectionStatistics();
+            _connectionQuality = new ConnectionStatistics();
+            _connectionQualityRemote = new ConnectionStatistics();
+            _connectionQualityRemote.AppendValue(-1);
         }
 
         public override void Dispose()
@@ -55,9 +65,13 @@ namespace SteamP2PInfo
                 ETWPingMonitor.Unregister(mNetIdentity);
 
                 byte[] ipBytes = BitConverter.GetBytes(mSessionState.m_nRemoteIP).Reverse().ToArray();
-                mNetIdentity = (ulong)mSessionState.m_nRemotePort << 32 | BitConverter.ToUInt32(ipBytes, 0);
+                mNetIdentity = ((ulong)mSessionState.m_nRemotePort << 32) | BitConverter.ToUInt32(ipBytes, 0);
                 ETWPingMonitor.Register(mNetIdentity);
             }
+
+            this._ping.AppendValue(ETWPingMonitor.GetPing(mNetIdentity));
+            this._connectionQuality.AppendValue(1d / ((0.01d * ETWPingMonitor.GetJitter(mNetIdentity)) + 1d));
+
             return true;
         }
 

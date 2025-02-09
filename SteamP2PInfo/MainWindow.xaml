@@ -32,12 +32,13 @@
     <Grid>
         <mah:MetroTabControl Name="tabCtrl">
             <mah:MetroTabItem Header="Session Info" IsEnabled="True">
+                
                 <DataGrid Margin="10 0 10 0" Name="dataGridSession" ItemsSource="{Binding}" AutoGenerateColumns="False" MouseDoubleClick="dataGridSession_DoubleClick">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding Name}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Steam ID" IsReadOnly="True" Binding="{Binding SteamID}" x:Name="ColumnSteamID"></DataGridTextColumn>
                         <!--<DataGridTextColumn Header="Main Steam ID" IsReadOnly="True" Binding="{Binding MainSteamID}" x:Name="ColumnSteamIDMain"></DataGridTextColumn>-->
-                        <DataGridTextColumn Header="Ping" IsReadOnly="True" Binding="{Binding Ping, StringFormat=N0}">
+                        <DataGridTextColumn Header="Ping" IsReadOnly="True" Binding="{Binding Ping.Current, StringFormat=N0}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
@@ -45,9 +46,36 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Connection Quality" IsReadOnly="True" Binding="{Binding ConnectionQuality, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ping Min" IsReadOnly="True" Binding="{Binding Ping.Min, StringFormat=N1}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
+                                    <Setter Property="TextAlignment" Value="Center"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Ping Max" IsReadOnly="True" Binding="{Binding Ping.Max, StringFormat=N1}"  Visibility="Collapsed">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
+                                    <Setter Property="TextAlignment" Value="Center"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Ping Avg" IsReadOnly="True" Binding="{Binding Ping.Avg, StringFormat=N1}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
+                                    <Setter Property="TextAlignment" Value="Center"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Ping Stdev" IsReadOnly="True" Binding="{Binding Ping.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="CQ" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}" Visibility="Collapsed"></DataGridTextColumn>
                         <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Relay" IsReadOnly="True" Binding="{Binding UsingRelay}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </mah:MetroTabItem>

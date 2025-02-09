@@ -39,18 +39,23 @@ namespace SteamP2PInfo
         /// <summary>
         /// Ping to peer in milliseconds.
         /// </summary>
-        public abstract double Ping { get; }
+        public abstract ConnectionStatistics Ping { get; }
 
         /// <summary>
         /// Subjective measure of connection quality to the remote peer where 0 = horrible and 1 = perfect.
         /// May not be very accurate if using the old API. When using the new API, should be directly related to packet loss.
         /// </summary>
-        public abstract double ConnectionQuality { get; }
+        public abstract ConnectionStatistics ConnectionQuality { get; }
 
         /// <summary>
         /// Packet delivery success rate as observed from remote host
         /// </summary>
-        public abstract double ConnectionQualityRemote { get; }
+        public abstract ConnectionStatistics ConnectionQualityRemote { get; }
+
+        /// <summary>
+        /// relay server
+        /// </summary>
+        public abstract string UsingRelay { get; }
 
         /// <summary>
         /// ARGB hexadecimal color code used to fill the ping text.
@@ -67,7 +72,7 @@ namespace SteamP2PInfo
 
                 foreach (OverlayConfig.PingColorRange r in GameConfig.Current.OverlayConfig.PingColors)
                 {
-                    if (r.Threshold <= Ping && r.Threshold > range.Threshold)
+                    if (r.Threshold <= Ping.Current && r.Threshold > range.Threshold)
                         range = r;
                 }
 
