@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using MahApps.Metro.Controls;
@@ -99,7 +98,6 @@ namespace SteamP2PInfo.Config
         public OverlayConfig OverlayConfig { get; private set; }
 
         public bool isLoaded { get; private set; }
-        public string id { get; private set; }
 
         /// <summary>
         /// Configuration of the currently selected game.
@@ -107,13 +105,12 @@ namespace SteamP2PInfo.Config
         public static GameConfig Current
         {
             get { return _current; }
-            private set { _current = value;}
+            private set { _current = value; }
         }
         private static GameConfig _current = new GameConfig();
 
         public GameConfig()
         {
-            id = Guid.NewGuid().ToString();
             isLoaded = false;
             TableConfig = new TableConfig();
             OverlayConfig = new OverlayConfig();

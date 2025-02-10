@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 
@@ -34,7 +33,7 @@ namespace SteamP2PInfo.Config
                 new object[] { "OnContent", "Yes" },
                 new object[] { "OffContent", "No" }
         })]
-        public bool ShowPingMin { get; set; }= true;
+        public bool ShowPingMin { get; set; } = true;
 
         [JsonProperty("show_ping_max")]
         [ConfigBindingElement("Show Ping Max", typeof(ToggleSwitch), "IsOnProperty",

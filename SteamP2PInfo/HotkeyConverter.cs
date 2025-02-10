@@ -20,7 +20,7 @@ namespace SteamP2PInfo
             if (value == null) return 0;
 
             HotKey hk = (HotKey)value;
-            return (int)hk.ModifierKeys << 8 | KeyInterop.VirtualKeyFromKey(hk.Key);
+            return ((int)hk.ModifierKeys << 8) | KeyInterop.VirtualKeyFromKey(hk.Key);
         }
     }
 }

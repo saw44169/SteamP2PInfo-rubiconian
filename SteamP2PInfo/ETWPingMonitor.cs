@@ -165,7 +165,7 @@ namespace SteamP2PInfo
             if (packet.size == 56)
             {
                 uint ipv4 = BitConverter.ToUInt32(packet.daddr.MapToIPv4().GetAddressBytes(), 0);
-                ulong netId = (ulong)packet.dport << 32 | ipv4;
+                ulong netId = ((ulong)packet.dport << 32) | ipv4;
 
                 lock (lockObj)
                 {
@@ -191,7 +191,7 @@ namespace SteamP2PInfo
             if (packet.size == 68)
             {
                 uint ipv4 = BitConverter.ToUInt32(packet.saddr.MapToIPv4().GetAddressBytes(), 0);
-                ulong netId = (ulong)packet.sport << 32 | ipv4;
+                ulong netId = ((ulong)packet.sport << 32) | ipv4;
 
                 lock (lockObj)
                 {

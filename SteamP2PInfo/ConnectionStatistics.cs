@@ -24,7 +24,8 @@ namespace SteamP2PInfo
         /// <summary>
         /// Constructor
         /// </summary>
-        public ConnectionStatistics() {
+        public ConnectionStatistics()
+        {
             this.ValueList = new List<double>();
             this._positiveValueList = new List<double>();
             this._avgCalculatedAt = 0;
@@ -34,12 +35,14 @@ namespace SteamP2PInfo
             this._min = double.PositiveInfinity;
         }
 
-        public void AppendValue(double value) {
+        public void AppendValue(double value)
+        {
             this.Current = value;
             this.ValueList.Add(value);
 
             if (value > this._max) { this._max = value; }
-            if (value >= 0) { 
+            if (value >= 0)
+            {
                 this._positiveValueList.Add(value);
                 if (value < this._min) { this._min = value; }
             }
@@ -58,7 +61,8 @@ namespace SteamP2PInfo
         private double CalcAvg()
         {
             int c = this.ValueList.Count;
-            if (this._avgCalculatedAt != c) { 
+            if (this._avgCalculatedAt != c)
+            {
                 this._avgCalculatedAt = c;
                 if (this._positiveValueList.Count > 0)
                 {
@@ -74,7 +78,7 @@ namespace SteamP2PInfo
             {
                 return this._stdev;
             }
-                int c = this.ValueList.Count;
+            int c = this.ValueList.Count;
             if (this._stdevCalculatedAt != c)
             {
                 this._stdevCalculatedAt = c;

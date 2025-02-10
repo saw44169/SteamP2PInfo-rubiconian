@@ -127,9 +127,9 @@ namespace SteamP2PInfo
                 Rect wpfRect = GetWPFRect();
 
                 Left = wpfRect.Left + (((int)GameConfig.Current.OverlayConfig.Anchor % 2 == 1) ? GameConfig.Current.OverlayConfig.XOffset * wpfRect.Width :
-                        (1 - GameConfig.Current.OverlayConfig.XOffset) * wpfRect.Width - ActualWidth);
+                        ((1 - GameConfig.Current.OverlayConfig.XOffset) * wpfRect.Width) - ActualWidth);
                 Top = wpfRect.Top + (((int)GameConfig.Current.OverlayConfig.Anchor < 2) ? GameConfig.Current.OverlayConfig.YOffset * wpfRect.Height :
-                    (1 - GameConfig.Current.OverlayConfig.YOffset) * wpfRect.Height - ActualHeight);
+                    ((1 - GameConfig.Current.OverlayConfig.YOffset) * wpfRect.Height) - ActualHeight);
             }
         }
 
@@ -146,10 +146,10 @@ namespace SteamP2PInfo
                 Rect wpfRect = GetWPFRect();
 
                 GameConfig.Current.OverlayConfig.XOffset = ((int)GameConfig.Current.OverlayConfig.Anchor % 2 == 1) ? (Left - wpfRect.Left) / wpfRect.Width :
-                    1 - (Left - wpfRect.Left + ActualWidth) / wpfRect.Width;
+                    1 - ((Left - wpfRect.Left + ActualWidth) / wpfRect.Width);
 
                 GameConfig.Current.OverlayConfig.YOffset = ((int)GameConfig.Current.OverlayConfig.Anchor < 2) ? (Top - wpfRect.Top) / wpfRect.Height :
-                    1 - (Top - wpfRect.Top + ActualHeight) / wpfRect.Height;
+                    1 - ((Top - wpfRect.Top + ActualHeight) / wpfRect.Height);
 
                 isDragging = false;
             }
@@ -167,7 +167,7 @@ namespace SteamP2PInfo
             if (dep is DataGridRow)
             {
                 DataGridRow row = dep as DataGridRow;
-                var peers = (ObservableCollection<SteamPeerBase>)(dataGrid.ItemsSource);
+                var peers = (ObservableCollection<SteamPeerBase>)dataGrid.ItemsSource;
                 Steamworks.SteamFriends.ActivateGameOverlayToUser("steamid", peers[row.GetIndex()].SteamID);
             }
         }

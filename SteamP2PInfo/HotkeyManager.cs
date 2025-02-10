@@ -56,7 +56,7 @@ namespace SteamP2PInfo
             int iget()
             {
                 HotKey hk = getter();
-                return (hk == null) ? 0 : (int)hk.ModifierKeys << 8 | (int)hk.Key;
+                return (hk == null) ? 0 : ((int)hk.ModifierKeys << 8) | (int)hk.Key;
             };
             return AddHotkey(new DynamicHotkey { hWindow = hWindow, getter = iget, handler = handler });
         }
@@ -80,7 +80,7 @@ namespace SteamP2PInfo
         private static IntPtr EvtDispatcher(int nCode, IntPtr wParam, IntPtr lParam)
         {
             int msg = wParam.ToInt32();
-            if (nCode >= 0 && msg == 0x100 || msg == 0x104) // Keydown message
+            if ((nCode >= 0 && msg == 0x100) || msg == 0x104) // Keydown message
             {
                 KBDLLHOOKSTRUCT kbInfo = Marshal.PtrToStructure<KBDLLHOOKSTRUCT>(lParam);
                 IntPtr foreWindow = User32.GetForegroundWindow();
