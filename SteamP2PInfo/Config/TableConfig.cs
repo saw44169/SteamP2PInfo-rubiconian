@@ -7,6 +7,15 @@ namespace SteamP2PInfo.Config
 {
     public class TableConfig : INotifyPropertyChanged
     {
+        // ---------------- Relay ----------------
+        [JsonProperty("show_relay")]
+        [ConfigBindingElement("Show relay status", typeof(ToggleSwitch), "IsOnProperty",
+            Tooltip: "Show relay status (0 : direct, other : using relay server)",
+            UIElementProperties: new object[] {
+                new object[] { "OnContent", "Yes" },
+                new object[] { "OffContent", "No" }
+        })]
+        public bool ShowRelay { get; set; } = true;
 
         // ---------------- Ping ----------------
         [JsonProperty("show_ping")]
@@ -149,16 +158,7 @@ namespace SteamP2PInfo.Config
         })]
         public bool ShowCQRStdev { get; set; } = false;
 
-        // ---------------- Others ----------------
-        [JsonProperty("show_relay")]
-        [ConfigBindingElement("Show relay status", typeof(ToggleSwitch), "IsOnProperty",
-            Tooltip: "Show relay status (0 : direct, other : using relay server)",
-            UIElementProperties: new object[] {
-                new object[] { "OnContent", "Yes" },
-                new object[] { "OffContent", "No" }
-        })]
-        public bool ShowRelay { get; set; } = true;
-
+        // ---------------- Connection Type ----------------
         [JsonProperty("show_conn_type")]
         [ConfigBindingElement("Show Connection Type", typeof(ToggleSwitch), "IsOnProperty",
             Tooltip: "Show Connection Type",

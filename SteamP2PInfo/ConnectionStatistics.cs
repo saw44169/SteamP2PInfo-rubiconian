@@ -77,7 +77,7 @@ namespace SteamP2PInfo
                 int c = this.ValueList.Count;
             if (this._stdevCalculatedAt != c)
             {
-                this._stdevCalculatedAt = this.ValueList.Count;
+                this._stdevCalculatedAt = c;
                 double avg = this.Avg;
                 double v = this._positiveValueList.Average(item => Math.Pow(item - avg, 2));
                 this._stdev = Math.Sqrt(v);
