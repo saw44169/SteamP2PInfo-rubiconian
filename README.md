@@ -4,7 +4,7 @@ tremwil氏作のSteamP2PInfoに余分な機能を追加するプロジェクト�
 Original: [tremwil/SteamP2PInfo](https://github.com/tremwil/SteamP2PInfo)  
 
 Armored Core VI での使用を念頭に開発  
-![](docs/image/gui.PNG)
+![](docs/image/gui.png)
 
 ## 追加した機能
 
