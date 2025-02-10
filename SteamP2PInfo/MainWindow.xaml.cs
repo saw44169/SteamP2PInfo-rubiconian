@@ -53,7 +53,7 @@ namespace SteamP2PInfo
 
             peers = new ObservableCollection<SteamPeerBase>();
             dataGridSession.DataContext = peers;
-            Title = "Steam P2P Info " + VersionCheck.CurrentVersion;
+            Title = "Steam P2P Info R " + VersionCheck.CurrentVersion;
 
             timer = new Timer(Timer_Tick, null, Timeout.Infinite, Timeout.Infinite);
             Settings.Default.PropertyChanged += (s, e) => Settings.Default.Save();
@@ -186,6 +186,7 @@ namespace SteamP2PInfo
                 if (dialog.ShowDialog() == true)
                 {
                     GameConfig.LoadOrCreate(dialog.SelectedWindow.ProcessName);
+                    mainWindowElem.DataContext = GameConfig.Current;
 
                     if (!Directory.Exists(System.IO.Path.GetDirectoryName(Settings.Default.SteamLogPath)))
                     {

@@ -8,7 +8,8 @@
         xmlns:config="clr-namespace:SteamP2PInfo.Config"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Steam P2P Info [VERSION]" Width="800" Height="450">
+        Name="mainWindowElem"
+        Title="Steam P2P Info R [VERSION]" Width="1000" Height="450">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <TextBlock VerticalAlignment="Center" Margin="0 0 10 0">           
@@ -28,17 +29,20 @@
         <Style x:Key="textCenter" TargetType="{x:Type TextBlock}">
             <Setter Property="TextAlignment" Value="Center"></Setter>
         </Style>
+        <local:BindingProxy x:Key="proxy" Data="{Binding}" />
     </mah:MetroWindow.Resources>
     <Grid>
         <mah:MetroTabControl Name="tabCtrl">
             <mah:MetroTabItem Header="Session Info" IsEnabled="True">
-                
                 <DataGrid Margin="10 0 10 0" Name="dataGridSession" ItemsSource="{Binding}" AutoGenerateColumns="False" MouseDoubleClick="dataGridSession_DoubleClick">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding Name}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Steam ID" IsReadOnly="True" Binding="{Binding SteamID}" x:Name="ColumnSteamID"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Steam ID" IsReadOnly="True" Binding="{Binding SteamID}" x:Name="ColumnSteamID"/>
                         <!--<DataGridTextColumn Header="Main Steam ID" IsReadOnly="True" Binding="{Binding MainSteamID}" x:Name="ColumnSteamIDMain"></DataGridTextColumn>-->
-                        <DataGridTextColumn Header="Ping" IsReadOnly="True" Binding="{Binding Ping.Current, StringFormat=N0}">
+                        <DataGridTextColumn Header="Relay" IsReadOnly="True" Binding="{Binding UsingRelay}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowRelay, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="Ping" IsReadOnly="True" Binding="{Binding Ping.Current, StringFormat=N0}"
+                                            Visibility="{Binding Data.TableConfig.ShowPing, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
@@ -46,36 +50,36 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Ping Min" IsReadOnly="True" Binding="{Binding Ping.Min, StringFormat=N1}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
-                                    <Setter Property="TextAlignment" Value="Center"></Setter>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Ping Max" IsReadOnly="True" Binding="{Binding Ping.Max, StringFormat=N1}"  Visibility="Collapsed">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
-                                    <Setter Property="TextAlignment" Value="Center"></Setter>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Ping Avg" IsReadOnly="True" Binding="{Binding Ping.Avg, StringFormat=N1}">
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Setter Property="Foreground" Value="{Binding PingColor}"></Setter>
-                                    <Setter Property="TextAlignment" Value="Center"></Setter>
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        <DataGridTextColumn Header="Ping Stdev" IsReadOnly="True" Binding="{Binding Ping.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="CQ" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}" Visibility="Collapsed"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Relay" IsReadOnly="True" Binding="{Binding UsingRelay}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Ping Min" IsReadOnly="True" Binding="{Binding Ping.Min, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowPingMin, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="Ping Max" IsReadOnly="True" Binding="{Binding Ping.Max, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowPingMax, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="Ping Avg" IsReadOnly="True" Binding="{Binding Ping.Avg, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowPingAvg, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="Ping Stdev" IsReadOnly="True" Binding="{Binding Ping.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowPingStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQ, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQMin, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQMax, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQAvg, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQR, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQR Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQRMin, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQR Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQRMax, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQR Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQRAvg, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="CQR Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowCQRStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
+                        <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"
+                                            Visibility="{Binding Data.TableConfig.ShowConnType, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </mah:MetroTabItem>

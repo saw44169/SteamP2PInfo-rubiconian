@@ -1,5 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
+using System.Runtime.CompilerServices;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 
@@ -75,21 +77,53 @@ namespace SteamP2PInfo.Config
                 new object[] { "OnContent", "Yes" },
                 new object[] { "OffContent", "No" }
             })]
-        public bool PlaySoundOnNewSession { get; set; } = false;
+        public bool PlaySoundOnNewSession
+        {
+            get { return _playSoundOnNewSession; }
+            set { _playSoundOnNewSession = value; RaisePropertyChanged(); }
+        }
+        private bool _playSoundOnNewSession = false;
+
+        /// <summary>
+        /// Table configuration for this game. 
+        /// </summary>
+        [JsonProperty("table")]
+        [ConfigCategory("Table Config")]
+        public TableConfig TableConfig { get; private set; }
 
         /// <summary>
         /// Overlay configuration for this game. Includes things like placement, enabled/disabled, etc.
         /// </summary>
         [JsonProperty("overlay")]
         [ConfigCategory("Overlay Config")]
-        public OverlayConfig OverlayConfig { get; private set; } = new OverlayConfig();
+        public OverlayConfig OverlayConfig { get; private set; }
+
+        public bool isLoaded { get; private set; }
+        public string id { get; private set; }
 
         /// <summary>
         /// Configuration of the currently selected game.
         /// </summary>
-        public static GameConfig Current { get; private set; }
+        public static GameConfig Current
+        {
+            get { return _current; }
+            private set { _current = value;}
+        }
+        private static GameConfig _current = new GameConfig();
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public GameConfig()
+        {
+            id = Guid.NewGuid().ToString();
+            isLoaded = false;
+            TableConfig = new TableConfig();
+            OverlayConfig = new OverlayConfig();
+            TableConfig.PropertyChanged += TableConfig_PropertyChanged;
+        }
+
+        private void TableConfig_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChanged("TableConfig");
+        }
 
         /// <summary>
         /// Load a settings file as the current game settings, or create a new file if the game does not have associated settings yet.
@@ -105,12 +139,14 @@ namespace SteamP2PInfo.Config
             {
                 Current = new GameConfig() { ProcessName = processName };
                 Current.Save();
+                Current.isLoaded = true;
                 return true;
             }
             else
             {
                 string json = File.ReadAllText($"config\\{processName}.json");
                 Current = JsonConvert.DeserializeObject<GameConfig>(json);
+                Current.isLoaded = true;
                 return false;
             }
         }
@@ -119,6 +155,12 @@ namespace SteamP2PInfo.Config
         {
             string json = JsonConvert.SerializeObject(Current, Formatting.Indented);
             File.WriteAllText($"config\\{Current.ProcessName}.json", json);
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

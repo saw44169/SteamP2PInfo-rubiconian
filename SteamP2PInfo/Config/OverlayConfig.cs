@@ -24,7 +24,7 @@ namespace SteamP2PInfo.Config
                 new object[] { "OnContent", "Yes" },
                 new object[] { "OffContent", "No" }
             })]
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = false;
 
         [JsonProperty("show_steam_id")]
         [ConfigBindingElement("Show Steam ID", typeof(ToggleSwitch), "IsOnProperty",
