@@ -91,7 +91,8 @@ namespace SteamP2PInfo.Config
         [ConfigCategory("Overlay Config")]
         public OverlayConfig OverlayConfig { get; private set; }
 
-        public bool isLoaded { get; private set; }
+        [JsonIgnore]
+        public bool IsLoaded { get; private set; }
 
         /// <summary>
         /// Configuration of the currently selected game.
@@ -100,7 +101,7 @@ namespace SteamP2PInfo.Config
 
         public GameConfig()
         {
-            isLoaded = false;
+            IsLoaded = false;
             TableConfig = new TableConfig();
             OverlayConfig = new OverlayConfig();
         }
@@ -119,14 +120,14 @@ namespace SteamP2PInfo.Config
             {
                 Current = new GameConfig() { ProcessName = processName };
                 Current.Save();
-                Current.isLoaded = true;
+                Current.IsLoaded = true;
                 return true;
             }
             else
             {
                 string json = File.ReadAllText($"config\\{processName}.json");
                 Current = JsonConvert.DeserializeObject<GameConfig>(json);
-                Current.isLoaded = true;
+                Current.IsLoaded = true;
                 return false;
             }
         }

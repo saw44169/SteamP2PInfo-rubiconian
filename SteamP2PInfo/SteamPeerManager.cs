@@ -44,8 +44,8 @@ namespace SteamP2PInfo
 
         public static void Init()
         {
-            fsWatcher = new FileSystemWatcher(Path.GetDirectoryName(Settings.Default.SteamLogPath));
-            fsWatcher.Filter = Path.GetFileName(Settings.Default.SteamLogPath);
+            fsWatcher = new FileSystemWatcher(Path.GetDirectoryName(AppConfig.Instance.SteamLogPath));
+            fsWatcher.Filter = Path.GetFileName(AppConfig.Instance.SteamLogPath);
             fsWatcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size;
             fsWatcher.Changed += (e, s) => mustReopenLog = true;
             fsWatcher.EnableRaisingEvents = true;
@@ -114,7 +114,7 @@ namespace SteamP2PInfo
 
                 try
                 {
-                    fs = new FileStream(Settings.Default.SteamLogPath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+                    fs = new FileStream(AppConfig.Instance.SteamLogPath, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
                     sr = new StreamReader(fs);
                     // If the file had to be reopened, read from the last position we were at before
                     if (lastPosInLog is null)

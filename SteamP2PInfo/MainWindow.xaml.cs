@@ -56,7 +56,6 @@ namespace SteamP2PInfo
             Title = "Steam P2P Info R " + VersionCheck.CurrentVersion;
 
             timer = new Timer(Timer_Tick, null, Timeout.Infinite, Timeout.Infinite);
-            Settings.Default.PropertyChanged += (s, e) => Settings.Default.Save();
 
             Task.Run(() =>
             {
@@ -96,7 +95,7 @@ namespace SteamP2PInfo
                     // Rather not have the settings update on a loop, but 
                     // Fody generated OnChange seems to break PropertyChanged 
                     // for GameConfig. So do this for now.
-                    if (GameConfig.Current.isLoaded)
+                    if (GameConfig.Current.IsLoaded)
                     {
                         GameConfig.Current.Save();
                     }
@@ -159,8 +158,7 @@ namespace SteamP2PInfo
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
-            if (GameConfig.Current.isLoaded) GameConfig.Current.Save();
-            Settings.Default.Save();
+            if (GameConfig.Current.IsLoaded) GameConfig.Current.Save();
             if (overlay != null) overlay.Close();
             HotkeyManager.Disable();
             ETWPingMonitor.Stop();
@@ -188,7 +186,7 @@ namespace SteamP2PInfo
                     GameConfig.LoadOrCreate(dialog.SelectedWindow.ProcessName);
                     mainWindowElem.DataContext = GameConfig.Current;
 
-                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(Settings.Default.SteamLogPath)))
+                    if (!Directory.Exists(System.IO.Path.GetDirectoryName(AppConfig.Instance.SteamLogPath)))
                     {
                         MessageBox.Show("Steam IPC log file directory does not exist. Please modify the config accordingly.", "Directory Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -251,19 +249,18 @@ namespace SteamP2PInfo
             String startupDateString = null;
 
             // Check if the program was recently updated -- We'll want to enter the command again if so
-            if (Settings.Default.LastRunVersion != VersionCheck.CurrentVersion)
+            if (AppConfig.Instance.LastRunVersion != VersionCheck.CurrentVersion)
             {
-                Settings.Default.LastRunVersion = VersionCheck.CurrentVersion;
-                Settings.Default.Save();
+                AppConfig.Instance.LastRunVersion = VersionCheck.CurrentVersion;
                 return true;
             }
 
-            if (!File.Exists(Settings.Default.SteamLogPath))
+            if (!File.Exists(AppConfig.Instance.SteamLogPath))
                 return true;
 
             try
             {
-                ipcLogDate = File.GetLastWriteTime(Settings.Default.SteamLogPath);
+                ipcLogDate = File.GetLastWriteTime(AppConfig.Instance.SteamLogPath);
 
             }
             catch (Exception)
@@ -273,7 +270,7 @@ namespace SteamP2PInfo
 
             try
             {
-                using (FileStream stream = new FileStream(Settings.Default.SteamBootstrapLogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (FileStream stream = new FileStream(AppConfig.Instance.SteamBootstrapLogPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     var reader = new ReverseTextReader(stream, Encoding.UTF8);
                     var today = DateTime.Today;
