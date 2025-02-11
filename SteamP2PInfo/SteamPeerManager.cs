@@ -42,6 +42,8 @@ namespace SteamP2PInfo
         /// </summary>
         private static Dictionary<CSteamID, SteamPeerInfo> mPeers = new Dictionary<CSteamID, SteamPeerInfo>();
 
+        public static List<SessionHistoryItem> SessionHistory { get; private set; } = new List<SessionHistoryItem>();
+
         public static void Init()
         {
             fsWatcher = new FileSystemWatcher(Path.GetDirectoryName(AppConfig.Instance.SteamLogPath));
@@ -188,7 +190,7 @@ namespace SteamP2PInfo
                             // peer just disconnected
                             if (mPeers.TryGetValue(steamID, out SteamPeerInfo pInfo))
                             {
-                                mPeers.Remove(steamID);
+                                RemovePeer(steamID);
                                 LogDisconnect(pInfo.peer, steamID, "Auth session with peer ended");
                             }
                         }
@@ -242,10 +244,21 @@ namespace SteamP2PInfo
 
                 if (!isP2PConnected && sw.ElapsedMilliseconds - pInfo.lastDisconnectTimeMS > PEER_TIMEOUT_MS)
                 {
-                    mPeers.Remove(sid);
+                    RemovePeer(sid);
                     LogDisconnect(pInfo.peer, sid, pInfo.peer is null ? "P2P connection was not established" : "Peer disconnected from P2P session");
                 }
             }
+        }
+
+        private static bool RemovePeer(CSteamID sid)
+        {
+            SteamPeerInfo pInfo;
+            bool exists = mPeers.TryGetValue(sid, out pInfo);
+            if (!exists) { return false; };
+            SessionHistory.Add(new SessionHistoryItem(pInfo.peer));
+            mPeers.Remove(sid);
+
+            return true;
         }
 
         public static IEnumerable<SteamPeerBase> GetPeers()

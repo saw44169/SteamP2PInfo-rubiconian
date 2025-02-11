@@ -25,6 +25,7 @@ namespace SteamP2PInfo
     public partial class MainWindow
     {
         private ObservableCollection<SteamPeerBase> peers;
+        private ObservableCollection<SessionHistoryItem> historyItems;
         private OverlayWindow overlay;
         private Timer timer;
         private int timerTicks = 0;
@@ -53,6 +54,8 @@ namespace SteamP2PInfo
 
             peers = new ObservableCollection<SteamPeerBase>();
             dataGridSession.DataContext = peers;
+            historyItems = new ObservableCollection<SessionHistoryItem>();
+            historyTableSession.DataContext = historyItems;
             Title = "Steam P2P Info R " + VersionCheck.CurrentVersion;
 
             timer = new Timer(Timer_Tick, null, Timeout.Infinite, Timeout.Infinite);
@@ -107,6 +110,12 @@ namespace SteamP2PInfo
                 peers.Clear();
                 foreach (SteamPeerBase p in SteamPeerManager.GetPeers())
                     peers.Add(p);
+
+                // ここでObservableCollectionであるhistoryItemsに操作が行われることで変更が画面に反映される
+                for (int i = historyItems.Count; i < SteamPeerManager.SessionHistory.Count; i++)
+                {
+                    historyItems.Insert(0, SteamPeerManager.SessionHistory[i]);
+                }
 
                 if (GameConfig.Current.PlaySoundOnNewSession)
                 {

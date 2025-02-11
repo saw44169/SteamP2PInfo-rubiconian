@@ -6,6 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:local="clr-namespace:SteamP2PInfo"
         xmlns:config="clr-namespace:SteamP2PInfo.Config"
+        xmlns:ctrl="clr-namespace:SteamP2PInfo.UserControls"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Name="mainWindowElem"
@@ -82,6 +83,9 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </mah:MetroTabItem>
+            <mah:MetroTabItem Header="History">
+                <ctrl:HistoryTableControl x:Name="historyTableSession" ItemsSource="{Binding}"/>
+            </mah:MetroTabItem>
             <mah:MetroTabItem Header="Config">
                 <ScrollViewer>
                     <StackPanel Orientation="Vertical" Name="ConfigTab">
@@ -90,6 +94,7 @@
                     </StackPanel>
                 </ScrollViewer>
             </mah:MetroTabItem>
+
         </mah:MetroTabControl>
     </Grid>
 </mah:MetroWindow>

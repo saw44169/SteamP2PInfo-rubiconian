@@ -9,6 +9,7 @@ namespace SteamP2PInfo
     /// </summary>
     abstract class SteamPeerBase : IDisposable
     {
+        public DateTime StartedAt { get; protected set; }
         /// <summary>
         /// Steam ID of the peer.
         /// </summary>
@@ -83,6 +84,7 @@ namespace SteamP2PInfo
         protected SteamPeerBase(CSteamID steamID)
         {
             SteamID = steamID;
+            StartedAt = DateTime.Now;
         }
 
         /// <summary>

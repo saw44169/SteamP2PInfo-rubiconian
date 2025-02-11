@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="SteamP2PInfo.UserControls.HistoryTableControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SteamP2PInfo.UserControls"
+             mc:Ignorable="d" 
+             x:Name="Root">
+    <UserControl.Resources>
+        <Style x:Key="textCenter" TargetType="{x:Type TextBlock}">
+            <Setter Property="TextAlignment" Value="Center"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DataGrid Margin="10 0 10 0" Name="dataGridSession" ItemsSource="{Binding ItemsSource, ElementName=Root}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Start" IsReadOnly="True" Binding="{Binding StartedAt}"/>
+                <DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding SteamName}"/>
+                <DataGridTextColumn Header="Steam ID" IsReadOnly="True" Binding="{Binding SteamIDStr}"/>
+                <DataGridTextColumn Header="Relay" IsReadOnly="True" Binding="{Binding UsingRelay}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="Ping Min" IsReadOnly="True" Binding="{Binding Ping.Min, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="Ping Max" IsReadOnly="True" Binding="{Binding Ping.Max, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="Ping Avg" IsReadOnly="True" Binding="{Binding Ping.Avg, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="Ping Stdev" IsReadOnly="True" Binding="{Binding Ping.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQ Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Min, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQ Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Max, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQ Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQR Min" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Min, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQR Max" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Max, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQR Avg" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="CQR Stdev" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"/>
+                <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
