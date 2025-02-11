@@ -1,4 +1,4 @@
-<mah:MetroWindow x:Class="SteamP2PInfo.MainWindow"
+﻿<mah:MetroWindow x:Class="SteamP2PInfo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -59,23 +59,23 @@
                                             Visibility="{Binding Data.TableConfig.ShowPingStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
                         <DataGridTextColumn Header="CQ" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQ, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQ Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQ Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Min, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQMin, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQ Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQ Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Max, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQMax, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQ Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQAvg, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQ Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQ Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQ Remote" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQR, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQR Min" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQR Min" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Min, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQRMin, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQR Max" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQR Max" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Max, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQRMax, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQR Avg" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQR Avg" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Avg, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQRAvg, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
-                        <DataGridTextColumn Header="CQR Stdev" IsReadOnly="True" Binding="{Binding ConnectionQuality.Current, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
+                        <DataGridTextColumn Header="CQR Stdev" IsReadOnly="True" Binding="{Binding ConnectionQualityRemote.Stdev, StringFormat=N2}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowCQRStdev, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
                         <DataGridTextColumn Header="Type" IsReadOnly="True" Binding="{Binding ConnectionTypeName}" ElementStyle="{StaticResource textCenter}"
                                             Visibility="{Binding Data.TableConfig.ShowConnType, Source={StaticResource proxy}, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed }"/>
