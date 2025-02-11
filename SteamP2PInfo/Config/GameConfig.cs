@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 
@@ -76,12 +75,7 @@ namespace SteamP2PInfo.Config
                 new object[] { "OnContent", "Yes" },
                 new object[] { "OffContent", "No" }
             })]
-        public bool PlaySoundOnNewSession
-        {
-            get { return _playSoundOnNewSession; }
-            set { _playSoundOnNewSession = value; RaisePropertyChanged(); }
-        }
-        private bool _playSoundOnNewSession = false;
+        public bool PlaySoundOnNewSession { get; set; } = false;
 
         /// <summary>
         /// Table configuration for this game. 
@@ -102,24 +96,13 @@ namespace SteamP2PInfo.Config
         /// <summary>
         /// Configuration of the currently selected game.
         /// </summary>
-        public static GameConfig Current
-        {
-            get { return _current; }
-            private set { _current = value; }
-        }
-        private static GameConfig _current = new GameConfig();
+        public static GameConfig Current { get; set; } = new GameConfig();
 
         public GameConfig()
         {
             isLoaded = false;
             TableConfig = new TableConfig();
             OverlayConfig = new OverlayConfig();
-            TableConfig.PropertyChanged += TableConfig_PropertyChanged;
-        }
-
-        private void TableConfig_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            RaisePropertyChanged("TableConfig");
         }
 
         /// <summary>
@@ -155,9 +138,5 @@ namespace SteamP2PInfo.Config
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void RaisePropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
