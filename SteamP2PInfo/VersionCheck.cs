@@ -28,18 +28,29 @@ namespace SteamP2PInfo
                 return false;
             }
 
-            if (resp.StatusCode == HttpStatusCode.OK)
+            if (resp.StatusCode != HttpStatusCode.OK)
             {
-                using (StreamReader reader = new StreamReader(resp.GetResponseStream()))
-                {
-                    JArray data = JArray.Parse(reader.ReadToEnd());
-                    if (data.Count != 0) LatestRelease = (JObject)data.Where(r => !(bool)r["prerelease"]).First();
-                    return data.Count != 0;
-                }
+                LatestRelease = null;
+                return false;
             }
 
-            LatestRelease = null;
-            return false;
+            using (StreamReader reader = new StreamReader(resp.GetResponseStream()))
+            {
+                JArray data = JArray.Parse(reader.ReadToEnd());
+                if (data.Count == 0)
+                {
+                    LatestRelease = null;
+                    return false;
+                }
+
+                var releases = data.Where(r => !(bool)r["prerelease"]);
+                bool existsReleases = releases.Any();
+                if (existsReleases)
+                {
+                    LatestRelease = (JObject)releases.First();
+                }
+                return existsReleases;
+            }
         }
     }
 }
