@@ -37,6 +37,7 @@ namespace SteamP2PInfo
         private ConnectionStatistics _ping;
         private ConnectionStatistics _connectionQuality;
         private ConnectionStatistics _connectionQualityRemote;
+        private bool ShouldStartAccumulatingValue = false;
 
         public SteamPeerOldAPI(CSteamID steamId) : base(steamId)
         {
@@ -69,9 +70,14 @@ namespace SteamP2PInfo
                 ETWPingMonitor.Register(mNetIdentity);
             }
 
-            this._ping.AppendValue(ETWPingMonitor.GetPing(mNetIdentity));
-            this._connectionQuality.AppendValue(1d / ((0.01d * ETWPingMonitor.GetJitter(mNetIdentity)) + 1d));
-
+            // Pingが取得できるようになるまで記録しない
+            double ping = ETWPingMonitor.GetPing(mNetIdentity);
+            this.ShouldStartAccumulatingValue |= ping > 0;
+            if (this.ShouldStartAccumulatingValue)
+            {
+                this._ping.AppendValue(ping);
+                this._connectionQuality.AppendValue(1d / ((0.01d * ETWPingMonitor.GetJitter(mNetIdentity)) + 1d));
+            }
             return true;
         }
 

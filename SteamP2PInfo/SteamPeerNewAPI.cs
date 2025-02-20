@@ -34,6 +34,7 @@ namespace SteamP2PInfo
         private ConnectionStatistics _ping;
         private ConnectionStatistics _connectionQuality;
         private ConnectionStatistics _connectionQualityRemote;
+        private bool ShouldStartAccumulatingValue = false;
 
         public SteamPeerNewAPI(CSteamID steamId) : base(steamId)
         {
@@ -50,9 +51,17 @@ namespace SteamP2PInfo
             networkingIdentity.SetSteamID(SteamID);
 
             var connState = SteamNetworkingMessages.GetSessionConnectionInfo(ref networkingIdentity, out mConnInfo, out mRealTimeStatus);
-            this._ping.AppendValue(mRealTimeStatus.m_nPing);
-            this._connectionQuality.AppendValue(mRealTimeStatus.m_flConnectionQualityLocal);
-            this._connectionQualityRemote.AppendValue(mRealTimeStatus.m_flConnectionQualityRemote);
+
+            // Pingが取得できるようになるまで記録しない
+            double ping = mRealTimeStatus.m_nPing;
+            this.ShouldStartAccumulatingValue |= ping > 0;
+            if (this.ShouldStartAccumulatingValue)
+            {
+                this._ping.AppendValue(ping);
+                this._connectionQuality.AppendValue(mRealTimeStatus.m_flConnectionQualityLocal);
+                this._connectionQualityRemote.AppendValue(mRealTimeStatus.m_flConnectionQualityRemote);
+            }
+
             return IsConnStateOK(connState);
         }
 
