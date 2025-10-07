@@ -266,8 +266,9 @@ namespace SteamP2PInfo
             return mPeers.Values.Where(info => info.peer != null).Select(info => info.peer);
         }
 
-        public static void exportHistory(string dirPath)
+        public static void exportHistory()
         {
+            string dirPath = GameConfig.Current.HistoryOutputDir;
             if (!Directory.Exists(dirPath))
             {
                 Logger.WriteLine("[ERROR] exportHistory failed : specified output directory does not exists");

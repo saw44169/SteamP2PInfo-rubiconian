@@ -170,7 +170,7 @@ namespace SteamP2PInfo
             if (GameConfig.Current.IsLoaded) GameConfig.Current.Save();
             if (SteamPeerManager.SessionHistory.Count > 0 && GameConfig.Current.ExportHisory)
             {
-                SteamPeerManager.exportHistory("./");
+                SteamPeerManager.exportHistory();
             }
             if (overlay != null) overlay.Close();
             HotkeyManager.Disable();

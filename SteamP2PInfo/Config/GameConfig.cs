@@ -66,7 +66,7 @@ namespace SteamP2PInfo.Config
         [JsonProperty("history_output_dir")]
         [ConfigBindingElement("History Export Directory", typeof(TextBox), "TextProperty",
             Tooltip: "Where to export session history files")]
-        public string History_output_dir { get; set; } = "./";
+        public string HistoryOutputDir { get; set; } = "./";
 
         /// <summary>
         /// If true, the hotkey system will be enabled while attached to this game.

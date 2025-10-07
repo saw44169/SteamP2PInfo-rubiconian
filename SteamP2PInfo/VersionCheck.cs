@@ -7,7 +7,7 @@ namespace SteamP2PInfo
 {
     static class VersionCheck
     {
-        public static readonly string CurrentVersion = "v0.3.0";
+        public static readonly string CurrentVersion = "v0.3.1";
         public static readonly string repositoryName = "saw44169/SteamP2PInfo-rubiconian";
         public static JObject LatestRelease { get; private set; }
 
