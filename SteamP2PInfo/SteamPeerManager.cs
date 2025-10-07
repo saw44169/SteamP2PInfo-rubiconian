@@ -254,7 +254,7 @@ namespace SteamP2PInfo
         {
             SteamPeerInfo pInfo;
             bool exists = mPeers.TryGetValue(sid, out pInfo);
-            if (!exists) { return false; };
+            if (!exists) { return false; }
             SessionHistory.Add(new SessionHistoryItem(pInfo.peer));
             mPeers.Remove(sid);
 
@@ -264,6 +264,39 @@ namespace SteamP2PInfo
         public static IEnumerable<SteamPeerBase> GetPeers()
         {
             return mPeers.Values.Where(info => info.peer != null).Select(info => info.peer);
+        }
+
+        public static void exportHistory(string dirPath)
+        {
+            if (!Directory.Exists(dirPath))
+            {
+                Logger.WriteLine("[ERROR] exportHistory failed : specified output directory does not exists");
+                return;
+            }
+
+            string eol = Environment.NewLine;
+            string csvStr = "Start, Steam Name, Steam ID, Relay, Ping Min, Ping Max, Ping Avg, Ping Stdev, CQ Min, CQ Max, CQ Avg, CQ Stdev, CQR Min, CQR Max, CQR Avg, CQR Stdev, Type" + eol;
+
+            foreach (SessionHistoryItem item in SessionHistory)
+            {
+                string startedAtStr = item.StartedAt.ToString();
+                string misc = $"{startedAtStr}, {item.SteamName}, {item.SteamIDStr}, {item.UsingRelay}, ";
+                var ping = item.Ping;
+                string pingCols = $"{ping.Min}, {ping.Max}, {ping.Avg}, {ping.Stdev}, ";
+                var cq = item.ConnectionQuality;
+                string cqCols = $"{cq.Min}, {cq.Max}, {cq.Avg}, {cq.Stdev}, ";
+                var cqr = item.ConnectionQualityRemote;
+                string cqrCols = $"{cqr.Min}, {cqr.Max}, {cqr.Avg}, {cqr.Stdev}, ";
+                csvStr += $"{misc}{pingCols}{cqCols}{cqrCols}{item.ConnectionTypeName}{eol}";
+            }
+
+            string dateStr = DateTime.Now.ToString("yyyy-MM-dd-HHmmss");
+            string fileName = $"{GameConfig.Current.ProcessName}_{dateStr}.csv";
+            string filePath = Path.Combine(dirPath, fileName);
+
+            File.WriteAllText(filePath, csvStr);
+            return;
+
         }
     }
 }

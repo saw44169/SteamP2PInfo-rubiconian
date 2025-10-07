@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.IO;
+using System.Windows.Controls;
 using MahApps.Metro.Controls;
 using Newtonsoft.Json;
 
@@ -52,6 +53,20 @@ namespace SteamP2PInfo.Config
                 new object[] { "OffContent", "No" }
             })]
         public bool LogActivity { get; set; } = false;
+
+        [JsonProperty("export_history")]
+        [ConfigBindingElement("Export History", typeof(ToggleSwitch), "IsOnProperty",
+            Tooltip: "If enabled, will output session history to a csv file.",
+            UIElementProperties: new object[] {
+                new object[] { "OnContent", "Yes" },
+                new object[] { "OffContent", "No" }
+            })]
+        public bool ExportHisory { get; set; } = false;
+
+        [JsonProperty("history_output_dir")]
+        [ConfigBindingElement("History Export Directory", typeof(TextBox), "TextProperty",
+            Tooltip: "Where to export session history files")]
+        public string History_output_dir { get; set; } = "./";
 
         /// <summary>
         /// If true, the hotkey system will be enabled while attached to this game.

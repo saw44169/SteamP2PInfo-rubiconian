@@ -168,6 +168,10 @@ namespace SteamP2PInfo
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             if (GameConfig.Current.IsLoaded) GameConfig.Current.Save();
+            if (SteamPeerManager.SessionHistory.Count > 0 && GameConfig.Current.ExportHisory)
+            {
+                SteamPeerManager.exportHistory("./");
+            }
             if (overlay != null) overlay.Close();
             HotkeyManager.Disable();
             ETWPingMonitor.Stop();

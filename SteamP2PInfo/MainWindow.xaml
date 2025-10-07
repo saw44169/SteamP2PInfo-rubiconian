@@ -13,7 +13,7 @@
         Title="Steam P2P Info R [VERSION]" Width="1000" Height="450">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
-            <TextBlock VerticalAlignment="Center" Margin="0 0 10 0">           
+            <TextBlock VerticalAlignment="Center" Margin="0 0 10 0">
                 <Hyperlink NavigateUri="" RequestNavigate="webLink_RequestNavigate" Name="linkUpdate">
                     <TextBlock FontWeight="Bold" Name="textUpdate"></TextBlock>
                 </Hyperlink>
