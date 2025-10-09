@@ -50,14 +50,14 @@
                 <DataGridTemplateColumn Header="Ping">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OverlayTextBlock Text="{Binding Ping, StringFormat=N0}" Fill="{Binding PingColor}" Style="{StaticResource defaultStyle}" />
+                            <local:OverlayTextBlock Text="{Binding Ping.Current, StringFormat={}{0:N0}ms }" Fill="{Binding PingColor}" Style="{StaticResource defaultStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Connection Quality" Visibility="{Binding Source={x:Static config:GameConfig.Current}, Path=OverlayConfig.ShowConnectionQuality, Converter={StaticResource VisibleIfTrueConverter}}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OverlayTextBlock Text="{Binding ConnectionQuality, StringFormat=N2}" Style="{StaticResource defaultStyle}" />
+                            <local:OverlayTextBlock Text="{Binding ConnectionQuality.Current, StringFormat=N2}" Style="{StaticResource defaultStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
