@@ -39,8 +39,29 @@ Armored Core VI での使用を念頭に開発
 
 オリジナルのSteamP2PInfoに準じます。
 
-1. releasesからダウンロードしたZIPを展開し、`SteamP2PInfo.exe`を起動
-1. ゲームを起動したらウィンドウのタイトルバー右側にある"Attach Game"をクリック
+1. releasesからダウンロードしたZIPを展開し、`SteamP2PInfo.exe`を起動  
+1. ゲームを起動したら、SteamP2PInfoのウィンドウのタイトルバー右側にある"Attach Game"をクリック
 1. 対象のプロセスを選択  
-   ※初回のみAppIdの設定が必要。SteamDB等で確認のこと
-1. 必要に応じてSteamのコンソールコマンドを実行（手動）
+   - ※初回のみAppIdの設定が必要。SteamDB等で確認のこと。（例、AC6は`1888160`）
+1. SteamP2PInfoに「Necessary Step」で始まるメッセージが表示される
+1. 「Copy Command」ボタンを押下するとクリップボードに必要なコマンドがコピーされ、メッセージが消える
+1. Steamクライアントアプリを開き、「コンソール」画面下部のテキストボックスにコピーしたコマンドを貼り付けてEnter
+   - Steamクライアントアプリを終了するまではコンソールでのコマンド実行は初回のみでよい（ゲームやSteamP2PInfoを再起動した場合でも再度貼り付け&Enterは不要）
+   - 「コンソール」タブが表示されない場合はこちらをクリック：[steam://open/console](steam://open/console)
+1. 必要に応じてSteamP2PInfoのConfigタブで設定を行う
+1. P2P接続が行われるとSession Infoタブに情報が表示される
+1. 履歴出力機能が有効であれば、SteamP2PInfo終了時に履歴がファイルに書き出される
+
+## バージョンアップ方法
+設定は`SteamP2PInfo.exe`と同じ階層にある`config`フォルダに保存されています。  
+これを引き継ぐことができれば設定が維持されます。
+
+### 方法1: 既存のSteamP2PInfoを置き換える場合
+1. releasesからダウンロードしたZIPを展開
+1. 既存のSteamP2PInfoのあるフォルダ内に1.で展開したフォルダの中身を貼り付けてすべて上書き
+
+### 方法2: 設定ファイルを取り出して引き継ぐ場合
+1. releasesからダウンロードしたZIPを展開
+1. 既存のSteamP2PInfoのあるフォルダ内から`config`フォルダをコピー
+1. 1.で展開したフォルダ内にコピーした`config`フォルダを貼り付ける
+1. 新しいSteamP2PInfoを起動
