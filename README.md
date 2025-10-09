@@ -10,22 +10,30 @@ Armored Core VI での使用を念頭に開発
 
 全ては余分に過ぎないのだ…
 
+### Session Info
 - リレーサーバー使用有無表示
 - 接続メソッド表示(SteamNetworking/SteamNetworkingSocket)
 - 相手側Connection Quality表示
   - SteamNetworkingSocketでの接続時のみ。AC6では取得できない様子
 - 接続情報統計表示
   - Ping, Connection Quality, Connection Quality Remoteについて下記を表示
-    - 最小値
-    - 最大値
-    - 平均
-    - 標準偏差
-- 表示カラム設定
-- 履歴機能
-  - プログラムを閉じるまで統計情報の履歴を保持する
-  - Configから履歴出力を有効化するとプログラム終了時に指定フォルダに.csvファイルを出力
+    - Min: 最小値
+    - Max: 最大値
+    - Avg: 平均
+    - Stdev: 標準偏差
 
-※現在オーバーレイ表示機能には未着手
+### History
+オリジナルのSteamP2PInfoにはなかった履歴機能を追加
+
+- プログラムを閉じるまで統計情報の履歴を保持
+- Configから履歴出力を有効化するとプログラム終了時に指定フォルダに.csvファイルを出力
+  - 出力先フォルダは監視対象プロセス指定後に設定可能
+
+### オーバーレイ
+- リレーサーバーの使用有無表示
+
+### その他
+- 更新自動チェック機能の無効化設定
 
 ## 使い方
 
