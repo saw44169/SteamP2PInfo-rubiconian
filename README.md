@@ -43,6 +43,7 @@ Armored Core VI での使用を念頭に開発
 1. ゲームを起動したら、SteamP2PInfoのウィンドウのタイトルバー右側にある"Attach Game"をクリック
 1. 対象のプロセスを選択  
    - ※初回のみAppIdの設定が必要。SteamDB等で確認のこと。（例、AC6は`1888160`）
+     - もし誤った値を設定した場合は`SteamP2PInfo.exe`と同階層にある`config`フォルダ内の`ゲーム名.json`をテキストエディタで開き、`steam_appid`プロパティの値を修正する
 1. SteamP2PInfoに「Necessary Step」で始まるメッセージが表示される
 1. 「Copy Command」ボタンを押下するとクリップボードに必要なコマンドがコピーされ、メッセージが消える
 1. Steamクライアントアプリを開き、「コンソール」画面下部のテキストボックスにコピーしたコマンドを貼り付けてEnter
@@ -65,3 +66,8 @@ Armored Core VI での使用を念頭に開発
 1. 既存のSteamP2PInfoのあるフォルダ内から`config`フォルダをコピー
 1. 1.で展開したフォルダ内にコピーした`config`フォルダを貼り付ける
 1. 新しいSteamP2PInfoを起動
+
+
+---
+
+X: @saw44169
