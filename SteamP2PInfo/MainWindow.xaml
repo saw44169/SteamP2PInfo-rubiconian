@@ -91,6 +91,8 @@
                     <StackPanel Orientation="Vertical" Name="ConfigTab">
                         <Label Margin="10 0 10 0" ToolTip="Path to Steam log directory. Only change this if you installed Steam somewhere else.">Steam Log Directory Path:</Label>
                         <TextBox Margin="10 0 10 0" Text="{Binding Source={x:Static config:AppConfig.Instance}, Path=SteamLogDir}" Width="500" HorizontalAlignment="Left"></TextBox>
+                        <Label Margin="10 0 10 0" ToolTip="Check updates on startup.">Update Check:</Label>
+                        <mah:ToggleSwitch Margin="10 0 10 0"  IsOn="{Binding Source={x:Static config:AppConfig.Instance}, Path=CheckUpdate}"></mah:ToggleSwitch>
                     </StackPanel>
                 </ScrollViewer>
             </mah:MetroTabItem>

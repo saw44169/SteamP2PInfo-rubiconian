@@ -9,6 +9,14 @@ namespace SteamP2PInfo.Config
     {
         public static AppConfig Instance { get; set; }
 
+        [JsonProperty("check_update")]
+        public bool CheckUpdate
+        {
+            get { return _checkUpdate; }
+            set { _checkUpdate = value; Save(); RaisePropertyChanged(); }
+        }
+        private bool _checkUpdate = false;
+
         [JsonProperty("steam_log_dir")]
         public string SteamLogDir
         {
