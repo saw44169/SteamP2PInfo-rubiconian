@@ -56,7 +56,7 @@ namespace SteamP2PInfo
         /// <summary>
         /// relay server
         /// </summary>
-        public abstract string UsingRelay { get; }
+        public abstract bool UsingRelay { get; }
 
         /// <summary>
         /// ARGB hexadecimal color code used to fill the ping text.

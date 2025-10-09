@@ -32,7 +32,7 @@ namespace SteamP2PInfo
 
         public override ConnectionStatistics ConnectionQualityRemote => this._connectionQualityRemote;
 
-        public override string UsingRelay { get { return mSessionState.m_bUsingRelay.ToString(); } }
+        public override bool UsingRelay { get { return mSessionState.m_bUsingRelay != 0; } }
 
         private ConnectionStatistics _ping;
         private ConnectionStatistics _connectionQuality;

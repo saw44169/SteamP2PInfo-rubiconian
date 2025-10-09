@@ -53,7 +53,7 @@ namespace SteamP2PInfo.Config
         [JsonProperty("banner_format")]
         [ConfigBindingElement("Banner Format", typeof(TextBox), "TextProperty",
             Tooltip: "Format string for the overlay banner text.")]
-        public string BannerFormat { get; set; } = "[{time:HH:mm:ss}] SteamP2PInfo-r - by saw44169";
+        public string BannerFormat { get; set; } = "[{time:HH:mm:ss}] SteamP2PInfo-r";
 
         [JsonProperty("font")]
         [ConfigFontSelector("Font", "Font for the text used in the overlay.")]
@@ -69,7 +69,7 @@ namespace SteamP2PInfo.Config
                 new object[] { "ParsingNumberStyle", NumberStyles.Float },
                 new object[] { "StringFormat", "F3" }
             })]
-        public double XOffset { get; set; } = 0.025;
+        public double XOffset { get; set; } = 0.0;
 
         [JsonProperty("y_offset")]
         [ConfigBindingElement("Y Offset", typeof(NumericUpDown), "ValueProperty",
@@ -81,7 +81,7 @@ namespace SteamP2PInfo.Config
                 new object[] { "ParsingNumberStyle", NumberStyles.Float },
                 new object[] { "StringFormat", "F3" }
             })]
-        public double YOffset { get; set; } = 0.025;
+        public double YOffset { get; set; } = 0.0;
 
         [JsonProperty("anchor")]
         [ConfigEnumComboBox("Anchor", typeof(OverlayAnchor),

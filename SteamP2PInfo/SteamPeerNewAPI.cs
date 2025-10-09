@@ -29,7 +29,7 @@ namespace SteamP2PInfo
 
         // What relay are we using to communicate with the remote host?
         // (0 if not applicable.)
-        public override string UsingRelay { get { return mConnInfo.m_idPOPRelay.ToString(); } }
+        public override bool UsingRelay { get { return (uint)mConnInfo.m_idPOPRelay != 0; } }
 
         private ConnectionStatistics _ping;
         private ConnectionStatistics _connectionQuality;

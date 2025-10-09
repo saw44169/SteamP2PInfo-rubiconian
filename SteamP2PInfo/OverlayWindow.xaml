@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SteamP2PInfo"
         xmlns:config="clr-namespace:SteamP2PInfo.Config"
+        xmlns:converter="clr-namespace:SteamP2PInfo.Converter"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         WindowStyle="None"
@@ -24,6 +25,7 @@
             <Setter Property="Typeface" Value="{Binding Source={x:Static config:GameConfig.Current}, Path=OverlayConfig.Font}"></Setter>
         </Style>
         <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+        <converter:BoolToAnyVisibilityConverter x:Key="HiddenIfFalseConverter" TrueTo="Visible" FalseTo="Hidden" />
     </Window.Resources>
     <Window.Background>
         <SolidColorBrush Color="Transparent"></SolidColorBrush>
@@ -58,6 +60,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <local:OverlayTextBlock Text="{Binding ConnectionQuality.Current, StringFormat=N2}" Style="{StaticResource defaultStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Relay">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <local:OverlayTextBlock  Text="Relay" Fill="IndianRed" Style="{StaticResource defaultStyle}" Visibility="{Binding UsingRelay, Converter={StaticResource HiddenIfFalseConverter}}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

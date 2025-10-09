@@ -7,7 +7,7 @@ namespace SteamP2PInfo
         public DateTime StartedAt { get; private set; }
         public string SteamIDStr { get; private set; }
         public string SteamName { get; private set; }
-        public string UsingRelay { get; private set; }
+        public bool UsingRelay { get; private set; }
         public ConnectionStatistics Ping { get; private set; }
         public ConnectionStatistics ConnectionQuality { get; private set; }
         public ConnectionStatistics ConnectionQualityRemote { get; private set; }
@@ -30,7 +30,7 @@ namespace SteamP2PInfo
             StartedAt = DateTime.Now;
             SteamIDStr = "1";
             SteamName = "hoge";
-            UsingRelay = "0";
+            UsingRelay = false;
             ConnectionTypeName = "peer.ConnectionTypeName";
         }
 
