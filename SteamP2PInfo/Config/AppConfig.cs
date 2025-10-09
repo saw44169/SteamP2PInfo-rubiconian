@@ -15,7 +15,7 @@ namespace SteamP2PInfo.Config
             get { return _checkUpdate; }
             set { _checkUpdate = value; Save(); RaisePropertyChanged(); }
         }
-        private bool _checkUpdate = false;
+        private bool _checkUpdate = true;
 
         [JsonProperty("steam_log_dir")]
         public string SteamLogDir
